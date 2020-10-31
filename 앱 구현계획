@@ -1,0 +1,243 @@
+-클래스 구조, UI구성 기술
+공통 : xml파일 전체레이아웃(가장바깥)은 기본적으로 width와 height이 match_parent입니다. 
+0. SQLite DB테이블
+member테이블
+ID	Password	name
+		
+		
+
+calendar테이블
+ID	제목	날짜	시작시간	종료시간
+				
+				
+
+timer테이블
+ID	내용	시간
+		
+		
+
+1. Manifests
+MainActivity, CalenderActivity, AddCalenderActivity, LoginActivity, TimerActivity, SignUpActivity을 등록합니다.
+
+2. Main
+activity_main.xml
+FrameLayout은 background를 @color/colorAccent설정합니다. 내부에 두 LinearLayout을 둡니다. 첫번째 LinearLayout은 Width와 height를 wrap_content로 설정하고 Horizontal로 합니다. 내부에 버튼 width는 90으로 설정하고 height은 wrap_content로 합니다. myListener방식을 채택합니다. 두번째 LinearLayout에서는 width만 match_parent로 하고 Horizontal로 설정하고 layout_gravity를 bottom으로 합니다. 타이머와 일정 버튼을 1의 가중치씩 두고 width만 match_parent로 합니다. 두 버튼은 onClick방식을 myListener로 설정하여 클릭시 새로운 액티비티를 시작하도록 설정합니다. 
+
+public class MainActivity
+메소드:
+Protected void onCreate(Bundle savedInstanceState)
+-super.onCreate을 통해 초기컴포넌트 초기화
+-setContentView를 통해 화면에 나타날 뷰가 담긴 activity_main파일을 불러와서 액티비티 설정합니다.
+
+public void myListender(View Target)
+LoginActivity클래스 정보를 가진 Intent객체를 생성하여 startActivity로 액티비티를 시작합니다.
+
+public void myListender1(View Target)
+TimerActivity클래스 정보를 가진 Intent객체를 생성하여 startActivity로 액티비티를 시작합니다.
+
+public void myListender2(View Target)
+CalenderActivity클래스 정보를 가진 Intent객체를 생성하여 startActivity로 액티비티를 시작합니다.
+
+3. Login
+login.xml
+LinearLayout내에 두개의 EditText와 LinearLayout, 그리고 Button을 둡니다. 
+전체레이아웃에 orientation을 vertical로 설정하고 layout_gravity를 center로 설정합니다.
+마진은 Top은 100, Left는 50, Rigth은 50을 설정합니다.
+첫번째 EditText는 ID를 입력하는 곳입니다. 두번째 EditText는 password를 입력하는곳으로 Top마진을 10을 줍니다.
+안에 있는 LinearLayout은 Top마진을 20을 설정하고 horizontal로 설정합니다. 내부에 OK, CANCEL버튼을 가중치1로 설정합니다. onClick방식을 적용합니다.
+마지막 버튼은 회원가입버튼으로 Top마진을 10줍니다. onClick을 myListener방식으로하여 시작시 새로운 액티비티 시작합니다.
+모두 width를 match_parent로 합니다.
+
+public class LoginActivity
+변수 : 
+Button btnOk, btnCancel – 버튼의 변수
+dbHelper helper - dbHelper클래스, 
+SQLiteDatabase db - SQLiteDatabse클래스  
+메소드 :
+onCreate
+super.onCreate(savedInstanceState)로 초기 컴포넌트를 초기화합니다.
+setContextView로 login.xml파일을 등록합니다.
+btnOk변수에 OK버튼의 아이디인 btn_ok를 저장합니다.
+dbHelper의 객체를 helper를 생성합니다.
+Helper를 getWritableDatabase()로 db변수에 저장합니다. 이것이 실패하면 getReadableDatabse()로 저장합니다.
+
+public void myListener4(View Target)
+SignUpActivity클래스 정보를 가진 Intent객체를 생성하여 startActivity로 액티비티를 시작합니다.
+
+public void onClick(View v)
+btnOk(확인버튼)라면 db에서 ID, password, name을 member테이블에서 select하여 회원이 입력한 ID와 password를 가진 idText와 pwdText와 테이블의 정보가 동일하게 있다면 toast성공메시지를 출력합니다. 일치하지 않다면 다시 입력하라는 toast메시지를 출력합니다.
+btnCancel(취소버튼)이라면 this.finish()를 호출하여 이전 액티비티로 이동합니다.
+
+4. Sign up
+sign_up.xml
+LinearLayout내부에 LinearLayout와 세 개의 EditText와 LinearLayout이 있습니다.
+전체 레이아웃에서는 Left, Right 마진을 50을 설정합니다. Orientation은 vertical로 합니다.
+처음 LinearLayout에는 ID를 입력하는 EditText와 중복확인을 하는 버튼을 horizontal로 배치합니다. 버튼은 onClick방식으로 합니다. 두 가중치는 16, 0.05로 합니다. 버튼은 width와 height을 wrap_content로 합니다.
+세 개의 EditText는 password, password 재입력, name을 입력하기 위함입니다.
+마지막 LinearLayout에는 취소 버튼과 완료버튼이 있습니다. Horizontal로 배치하고 onClick방식으로 하고 1가중치씩 줍니다.
+버튼을 제외하고 width만 match_parent로 합니다.
+
+public class SignUpActivity
+변수 : 
+Button btnCheck, btnFin – 버튼 변수
+dbHelper helper - dbHelper클래스
+SQLiteDatabase db - SQLiteDatabase클래스
+EditText id, pw, rePw, name : findViewById로 EditText불러옴.
+
+protected void onCreate(Bundle savedInstanceState
+super.onCreate(savedInstanceState으로 초기 컴포넌트 초기화합니다.
+setContentView로 sign_up.xml을 등록합니다.
+dbHelper의 객체인 helper를 생성하여 try catch로 getWritableDatabse()와 getReadableDatabse()로 db저장합니다.
+
+public void onClick(View v)
+btnCheck(중복확인버튼)일 경우에, SQLite memeber테이블의 id를 select해서 이미 있다면 다시 입력하라는 toast메시지를 출력합니다. 없다면 사용가능하다는 toast메시지 출력합니다.
+btnFin(완료버튼)을 누르면 db변수의 execSQL로 member테이블에 입력된 ID, password,name을 insert합니다. Toast메시지로 생성메시지를 출력합니다. 완료되면 this.finish()로 이전 액티비티로 이동합니다.
+btnPrev(취소버튼)을 누르면 this.finish()로 이전 액티비티로 이동합니다.
+
+5. Timer
+timer.xml
+RelativeLayout는 vertical이고 내부에 ListView를 둡니다. 
+추가button을 배치합니다.
+그아래에 완료button을 배치합니다. 
+모두 width와 height을 wrap_conetne로 합니다.
+
+
+timeritem.xml
+LinearLayout내부에 TextView, Chronometer, 세 개의 Button과 imageButton을 horizontal로 배치합니다. imageButton은 휴지통모양의 아이콘으로합니다.
+TextView는 내용(ex 토익공부)을 입력받기 위함이고 textSize는 35로 하고 bold체로합니다.
+Chronometer로 스탑워치시간을 보입니다. setSize는 20으로합니다.
+첫번째 버튼은 start버튼이고 두번째 버튼은 stop버튼이고 세번째는 수정버튼(내용수정)입니다.
+각 가중치는 1로 합니다.
+ImageButton을 제외하고 layout_width를 match_parent로합니다. 모든 layout_height은 wrap_content로 합니다.
+
+custom_dialog.xml
+LinearLayout은 vertical이고 그 내부에 EditText, LinearLayout을 배치합니다.
+EditText로 제목을 입력받습니다. text타입입니다.
+내부 LinearLayout은 horizontal이고 OK, CANCEL버튼이 있습니다.
+EditText 의 width만 match_parent고 나머지는 width와 height이 wrap_content입니다.
+
+public class TimerActivity
+변수 :
+EditText etContent : 내용
+Chronometer chTimer : 스탑워치(타이머) 변수
+Button btnStart, btnStop, btnTotal, btnPlus, btnAdd,btnNo, btnModify : 시작, 정지, 완료, 추가,+,수정버튼 변수
+dbHelper helper - dbHelper클래스, 
+SQLiteDatabase db - SQLiteDatabse클래스  
+ImageButton ib -휴지통 버튼
+ArrayList<String> etContentToStr : etConent를 str형식으로 저장
+CustomList adapter : 등록할 어댑터
+
+메소드:
+protected void onCreate(Bundle savedInstanceState)
+super.onCreate(savedInstanceState)로 초기컴포넌트 설정합니다.
+setContentView로 timer.xml파일을 등록합니다.
+CustomList객체를 생성하여 timer에 등록합니다.
+dbHelper의 객체인 helper를 생성하여 try catch로 getWritableDatabse()와 getReadableDatabse()로 db저장합니다.
+
+public class CustomList extends ArrayAdapter<String>
+timeritem.xml의 내용을 etContentToStr(사용자입력 내용)을 받아서 CustomList객체(ArrayAdapter객체)를 생성합니다.
+
+public View getView(int position, View view, ViewGroup parent)
+각 내용과 timer시간을 불러와서 출력합니다.
+
+public void onClick(View v)
+btnStart(시작버튼)이면 chTimer의 start()함수를 시작합니다.
+btnStop(멈춤버튼)이면 chTimer의 stop()함수를 시작합니다.
+btnTotal(완료버튼)이라면 db의 timer테이블의 ID, 내용과 시간을 update합니다.
+btnAdd(+버튼)일 때 custom_dialog를 생성하여 dialog의 btnPlus(추가버튼)이면 
+etContentToStr의 add메소드를 이용하여 사용자가입력한 내용을 추가하고
+adpater의 notifyDataSetCahnged()메소드를 이용해서 listview를 갱신합니다.
+db의 테이블의 ID,내용과 시간을 insert합니다. btnNo(취소버튼)이면 dialog를 dismiss합니다.
+btnModify(수정버튼)이면 etContentToStr의 set메소드를 이용하고
+adpater의 notifyDataSetCahnged()메소드를 이용해서 listview를 갱신합니다. DB에서 update명령문을 실행합니다.
+ib(휴지통버튼)이면 etContentToStr의  remove메소드를 이용하고
+adpater의 notifyDataSetCahnged()메소드를 이용해서 listview를 갱신합니다.
+DB에서 delete 명령문을 실행합니다.
+
+6. Calendar
+calender.xml
+RelativeLayout내에 TextView, CalendarView, 세 개의 Button, EditText을 배치합니다.
+TextView는 Calendar의 text가 출력되게 하고 garvity를 center로, 색깔은 #98FF98 bold체로 설정합니다. 텍스트 사이즈는 50입니다.
+그 아래에 CalendarView를 배치합니다.
+그 아래에 추가버튼을 우측(alignParentRight)에 배치합니다. myListener방식을 채택합니다.
+나머지 두 버튼 수정, 삭제버튼은 onClick방식이고 각각 alignParentLeft, centerHorizontal을 적용합니다. 수정, 삭제, 추가 모두 캘리니더뷰아래에 위치하여 동일선상에 위치합니다.
+EditText를 수정버튼 아래에 배치합니다.
+레이아웃은 width, height을 match_parent, 버튼들은 둘다 wrap_content, 나머지는 width를 match_parent로 합니다. 
+
+add_calender.xml
+FrameLayout내에 EditText, 두 개의 LinearLayout를 배치합니다.
+전체 레이어는 vertical,Left와 Right마진은 각각 100으로 설정합니다.
+EditText는 Top마진을 200을 주고 “일정 제목”의 힌트를 줍니다.
+첫번째 LinearLayout은 vertical, layout_gravity를 center로 설정합니다. 그 내부에 시작날짜, 종료날짜 버튼을 onClick으로 설정합니다.
+두번째 LinearLayout은 horizontal, Top마진 450으로 설정합니다. 내부에 취소, 저장버튼은 onClick으로, 가중치는 1로 합니다. 
+모두 width는 match_parent, height은 wrap_content로 합니다.
+
+public class CalenderActivity
+변수:
+EditText cTitle : 사용자가 입력한 일정제목 변수
+Button btnMod, btnDel 수정,삭제버튼 변수
+메소드:
+protected void onCreate(Bundle savedInstanceState)
+super.onCreate을 통해 초기컴포넌트 초기화합니다.
+setContentView를 통해 화면에 나타날 뷰가 담긴 calender.xml파일을 불러와서 액티비티 설정합니다.
+
+public void onClick(View v)
+btnMod(수정버튼)이면 DB에서 update로 수정하고 setText로 EditText에 변경사항을 출력합니다.
+btnDel(삭제버튼)이면 DB에서 delete명령을 실행하고 setText로 빈공백을 출력합니다.
+
+
+public void myListener3(View Target)
+AddCalenderActivity의 intent객체를 startActivity함수로 실행합니다.
+
+protected void onActivityResult(int requestCode, int resultCode, Intent data) 
+AddCalenderActivity의 종료코드를 감지하여 cTitle에 setText로 입력받은 내용을 출력합니다.
+
+public class AddCalenderActivity
+변수:
+Button btnStart, btnEnd, btnSave, btnBack: 시작시간, 종료시간, 저장, 취소,추가버튼 변수
+String selected : select명령으로 DB에서 가져오는 변수
+
+메소드:
+protected void onCreate(Bundle savedInstanceState)
+super.onCreate(savedInstanceState)로 초기컴포넌트 설정합니다.
+setContentView로 add_calender.xml파일을 등록합니다.
+dbHelper의 객체인 helper를 생성하여 try catch로 getWritableDatabse()와 getReadableDatabse()로 db저장합니다.
+버튼변수를 xml의 아이디로 저장합니다.
+
+public void onClick(View v)
+저장된 내용을 Toast메시지로 출력합니다.
+btnStart(시작시간), btnEnd(종료시간)이면 TimePickerDialog를 띄워서 사용자가 선택합니다. 이를 변수로 저장해둡니다. 해당 버튼에 이를 출력합니다.
+btnSave(저장버튼)일 때 calendar테이블의 ID, 일정제목, 시작시간, 종료시간을 insert합니다. 해당 정보를 toast메시지로 출력합니다.
+일정이 존재하는지 DB로 select명령문을 실행하여 selected에 저장한다.  만약에 있다면 “덮어 씌우시겠습니까?”라는 alertDialogBuilder로 물어보고  YES, NO로 선택한다. YES를 누르면 성공toast메시지를 출력합니다. 
+Intent객체를 생성하여 putExtra메소드로는 값을 보내고 setTresult로 종료코드를 보냅니다. Finish()로 이전액티비티로 이동합니다.
+btnBack(취소버튼)일 때 this.finish()를 호출하여 이전 액티비티로 이동합니다.
+
+-앱의기능 구현 내용 기술
+0. 시작화면
+홈화면에서 로그인, 타이머, 일정버튼을 통해서 새로운 액티비티로 접근합니다.
+변경사항 : 
+버튼식으로 액티비티가 이동하도록 하기위해서 홈화면이 타이머 화면이 아닌 홈화면 내에 두 버튼을 누르면 타이머, 캘린더 화면으로 전환되도록 변경합니다.  
+화면 전환시 항상 하단에 버튼이 고정되게 하려는 것은 커스텀탭을 적용해야하는데 이는 가능하면 추후에 가능하다면 추가합니다.
+
+1. 로그인
+ID와 비밀번호를 사용자 입력으로 받아서 회원정보를 저장합니다. 
+홈화면의 상단에 login을 누르면 새로운 액티비티에서 사용자가 아이디, 비밀번호를 입력하여 완료버튼을 누르면 이 정보들이 DB와 비교하여 ID와 비밀번호가 동일한게 있는지에 따라 성공, 실패를 나눕니다. 로그인이 완료되면 성공Toast메시지를 출력하고, 그렇지않으면 실패Toast메시지를 출력합니다. 다 완료되면 이전 액티비티로 돌아갑니다. 취소를 누를경우 마찬가지입니다. 회원가입버튼을 누르면 새로운 액티비티가 시작합니다.
+
+2. 회원가입
+ID, password, name을 사용자가 입력하여 완료버튼 누릅니다. 그과정에서 ID중복확인 버튼을 클릭하면 기존DB에 있는지 확인합니다. 있다면 재입력 Toast 메시지를, 없다면 사용가능 Toast메시지를 출력합니다. SQLite DB에 정보들이 저장됩니다.  회원가입에 성공하면 Toast 성공메시지를 출력하고 이전액티비티로 돌아갑니다. 취소버튼을 누르면 이전액티비티로 돌아갑니다.
+변경사항 : ID와 닉네임의 큰 구분을 느끼지 못하여 이름으로 변경합니다.
+회원가입 완료시 새로운 액티비티로 메시지 출력 하는대신에 Toast메시지로 대체했는데 사용자 편의성을 위해서, 액티비티를 새로 여는 것은 많이 하였기 때문에 대체합니다. 
+ID중복방지를 위해서 중복확인버튼을 추가하였습니다.
+
+3. 타이머
+제목,타이머,시작버튼, 스탑버튼이 생성한순서대로 출력됩니다.
+하단에 ‘+’를 누르면 custom dialog에서 제목을 타이핑하고 추가를 누르면 완료됩니다. 추가된 정보는 SQLite DB에 추가합니다. 그 아래에 완료를 누르면 최신정보로 db를 업데이트합니다.
+변경사항 : 
+Custom dialog도 다루기 위해서 +아이콘을 누르면 새로운 액티비티가 아닌 custom dialog로 처리합니다.
+홈화면과 구별하기 위해 홈화면이 아닌 타이머 액티비티에서 작업합니다.
+
+4. 캘린더
+캘린더뷰를 보면서 사용자가 해당 날짜를 누르고 추가버튼을 누르면 새로운 액티비티에서 일정제목을 타이핑하고 시작날짜와 종료날짜를 사용자가 선택하면 버튼이 해당 결과로 출력됩니다. 저장버튼을 부르면 생성한 정보들이 toast메시지로 출력됩니다. 취소버튼을 누르면 이전 액티비티로 돌아갑니다.
+변경사항 : 단순화하기 위해서 시간대별로 나누어진 표를 하는 것은 캘린더뷰로 수정,추가,삭제 하는것으로 변경하였습니다.
+안드로이드스튜디오에 이미 캘린더뷰가 있어서 캘린더를 직접 구현하지않고 이를 이용했습니다. 그래서 캘린더의 기간설정을 하지 않았습니다.
+
