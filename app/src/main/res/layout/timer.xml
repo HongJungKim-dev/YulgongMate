@@ -10,10 +10,11 @@
        android:layout_height="wrap_content"></ListView>
 
    <Button
+       android:id="@+id/add_timer"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:gravity="center"
-       android:layout_below="@+id/list_timer"
-       android:text="완료"/>
+       android:layout_below="@id/list_timer"
+       android:onClick="onClick"
+       android:text="추가"/>
 </RelativeLayout>
 
