@@ -2,8 +2,6 @@ package kr.ac.konkuk.yulgongmate;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.Gravity;
@@ -15,26 +13,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 
 public class TimerActivity extends AppCompatActivity {
     EditText etContent;
     TextView studyContent;
-    //TextView etContent;
     Chronometer chTimer;
     Button btnStart, btnStop, btnTotal, btnPlus, btnAdd, btnNo, btnModify;
-    ImageButton ib;
     ArrayList<String> etContentToStr = new ArrayList<String>();
     ArrayList<View> arrRowView = new ArrayList<View>();
-    //String[] etContentToStr;
     ListView listTimer;
     Button start;
 
@@ -42,17 +33,16 @@ public class TimerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {   //레이아웃 생성
         super.onCreate(savedInstanceState);  //초기 컴포넌트 초기화
         setContentView(R.layout.timer);  //화면에 나타날 view가 담긴 xml파일을 불러와서 액티비티 설정
-        btnAdd = (Button) findViewById(R.id.add_timer);
-        CustomList adapter = new CustomList(TimerActivity.this);
-        listTimer = (ListView) findViewById(R.id.list_timer);
-        //start = (Button) listTimer.findViewById(R.layout.timeritem.R.id.btn_start);
-        listTimer.setAdapter(adapter);
+        btnAdd = (Button) findViewById(R.id.add_timer); //타이머추가 버튼
+        CustomList adapter = new CustomList(TimerActivity.this); //어댑터
+        listTimer = (ListView) findViewById(R.id.list_timer); //타이머 리스트 아이디 저장
+        listTimer.setAdapter(adapter); //어댑터 등록
         listTimer.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                View v= (View)parent.getItemAtPosition(position);
-                if(v==start){
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) { //클릭하면
+                View v= (View)parent.getItemAtPosition(position); //위치 얻기
+                if(v==start){ //타이머 시작
                     chTimer.start();
                 }
             }
@@ -62,7 +52,7 @@ public class TimerActivity extends AppCompatActivity {
     public class CustomList extends ArrayAdapter<String> {
         private final Activity context;
 
-        public CustomList(Activity context) {
+        public CustomList(Activity context) { //customlist
             super(context, R.layout.timeritem, etContentToStr);
             this.context = context;
         }
@@ -79,35 +69,32 @@ public class TimerActivity extends AppCompatActivity {
 
             studyContent.setText(etContentToStr.get(position));
 
-            //need to be revised//
-            btnStart.setOnClickListener(new Button.OnClickListener(){
+            btnStart.setOnClickListener(new Button.OnClickListener(){ //시작버튼 누르면
                 @Override
                 public void onClick(View v) {
-                    chTimer.start();
+                    chTimer.start();//타이머시작
                 }
             });
-            btnStop.setOnClickListener(new Button.OnClickListener(){
+            btnStop.setOnClickListener(new Button.OnClickListener(){ //스탑버튼 누르면
                 @Override
                 public void onClick(View v) {
-                    chTimer.stop();
+                    chTimer.stop(); //타이머 중지
                     chTimer.setBase(SystemClock.elapsedRealtime());
                 }
             });
-            //need to be revised//
-
             return rowView;
         }
     }
     public void onClick(View v) {
         
-        if(v == btnAdd){
+        if(v == btnAdd){ //추가버튼 누르면
             final Dialog myDialog = new Dialog(this);   //커스텀 대화상자를 생성
-            myDialog.setContentView(R.layout.custom_dialog);
+            myDialog.setContentView(R.layout.custom_dialog); //화면 출력
             myDialog.show();   //대화상자를 계속 화면에 출력
 
-            btnPlus = (Button) myDialog.findViewById(R.id.addOk);
-            btnNo = (Button) myDialog.findViewById(R.id.addCancel);
-            etContent = (EditText) myDialog.findViewById(R.id.timer_title);
+            btnPlus = (Button) myDialog.findViewById(R.id.addOk); //ok버튼 아이디 저장
+            btnNo = (Button) myDialog.findViewById(R.id.addCancel); //취소 버튼 아이디 저장
+            etContent = (EditText) myDialog.findViewById(R.id.timer_title);//타이머 제목 아이디 저장
 
             btnPlus.setOnClickListener(new View.OnClickListener(){
 
@@ -131,12 +118,5 @@ public class TimerActivity extends AppCompatActivity {
             });
 
         }
-//        if(v==btnStart){
-//            chTimer.start();
-//        }
-//        if(v==btnStop){
-//            chTimer.stop();
-//            chTimer.setBase(SystemClock.elapsedRealtime());
-//        }
     }
 }

@@ -7,24 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class dbHelper extends SQLiteOpenHelper {
-    public static final String TABLE_NAME = "member";
-    public static final String COLUMN_ID = "id";
-    public static final String COLUMN_PWD = "password";
-    public static final String COLUMN_NAME = "name";
     private static dbHelper helper;
 
     private dbHelper(Context context){
-        super(context, "DB", null, 2);
+        super(context, "DB.sqlite3", null, 2);
     }
 
-    public static dbHelper getInstance(Context applicationContext) {
-//        if(helper == null){
-//            synchronized (dbHelper.class){
-//                if(helper == null){
-//                    helper = new dbHelper(applicationContext);
-//                }
-//            }
-//        }
+    public static dbHelper getInstance(Context applicationContext) {  //db한번만 생성해서 여러 액티비티에서 사용
         if(helper == null){
             helper = new dbHelper(applicationContext);
         }
@@ -32,11 +21,10 @@ public class dbHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE member(id TEXT PRIMARY KEY, password TEXT, name TEXT, FOREIGN KEY(id)REFERENCES calendar);");
-        db.execSQL("CREATE TABLE calendar(id TEXT , date TEXT, start INT,fin INT, PRIMARY KEY(id, date));");
-//        db.execSQL("CREATE TABLE timer " +
-//                "(id TEXT,  content TEXT, time TIME, total TIME, PRIMARY KEY(id, content));");
+    public void onCreate(SQLiteDatabase db) { //테이블 3개 생성
+        db.execSQL("CREATE TABLE member(id TEXT PRIMARY KEY, password TEXT, name TEXT, FOREIGN KEY(id)REFERENCES calendar);"); //sql문으로 테이블 생성
+        db.execSQL("CREATE TABLE calendar(id TEXT , date TEXT, start INT,fin INT, PRIMARY KEY(id, date));"); //sql문으로 테이블 생성
+        db.execSQL("CREATE TABLE timer(id TEXT,  content TEXT, time TIME, total TIME, PRIMARY KEY(id, content));"); //sql문으로 테이블 생성
     }
 
     @Override
