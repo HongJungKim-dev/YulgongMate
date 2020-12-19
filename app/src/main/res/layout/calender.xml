@@ -18,8 +18,7 @@
         android:id="@+id/CV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/CalendarTitle"
-        android:layout_marginTop="-136dp" />
+        android:layout_below="@id/CalendarTitle" />
 
     <Button
             android:id="@+id/addCalendar"
@@ -50,6 +49,8 @@
         android:id="@+id/reservedCalendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/modCalendar"/>
+        android:layout_below="@+id/modCalendar"
+        android:hint="위에서 날짜를 선택하시오."
+        />
 
 </RelativeLayout>

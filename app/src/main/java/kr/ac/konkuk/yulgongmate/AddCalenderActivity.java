@@ -36,8 +36,11 @@ public class AddCalenderActivity extends AppCompatActivity {
 
         day = new int[3]; //day 배열 생성
         intent = getIntent(); //인텐트 얻기
-        day = intent.getIntArrayExtra("day"); //년월일 불러오기
+
         id = intent.getStringExtra("id"); //로그인한 id불러오기
+        day = intent.getIntArrayExtra("day");
+        Toast.makeText(getApplicationContext(), "id : "+id, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "day : "+day[0]+","+day[1]+","+day[2], Toast.LENGTH_LONG).show();
     }
 
     public void onClick(View v){

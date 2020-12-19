@@ -6,11 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CalenderActivity extends AppCompatActivity {
+    EditText reserved;
     Button btnMod, btnDel; //수정, 삭제버튼
     CalendarView cv; //캘린더뷰
     dbHelper helper; //dbHelper
@@ -23,19 +25,35 @@ public class CalenderActivity extends AppCompatActivity {
         setContentView(R.layout.calender);  //화면에 나타날 view가 담긴 xml파일을 불러와서 액티비티 설정
         btnMod = (Button) findViewById(R.id.modCalendar); //수정버튼 아이디 저장
         btnDel = (Button) findViewById(R.id.delCalendar); // 삭제버튼 아이디 저장
+        reserved = (EditText) findViewById(R.id.reservedCalendar);
 
         cv = (CalendarView) findViewById(R.id.CV); //캘린더뷰 아이디 저장
         Intent intent = getIntent(); //인텐트 얻기
         id = intent.getStringExtra("id"); //로그인한 아이디 불러오기
+        //Toast.makeText(getApplicationContext(), "id : "+id, Toast.LENGTH_LONG).show();
+        try{
+            System.out.println("=========================");
+            System.out.println("id : "+id);
+        }catch(Exception e){
+            System.out.println("=========================");
+            System.out.println("error" + e);
+        }
         helper = dbHelper.getInstance(getApplicationContext()); //dbHelper가져오기
-        cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
 
+        cv.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) { //캘린더뷰 값들 저장
                 day = new int[3];
                 day[0] = year;
                 day[1] = month;
                 day[2] = dayOfMonth;
+                if(day[0]==0) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "날짜를 선택하시오", Toast.LENGTH_SHORT);
+                }else {
+                    String dayStr = "'"+day[0] + "-" + day[1] + "-" + day[2]+"'로 날짜가 선택되었습니다.";
+                    reserved.setText(dayStr);
+                }
+               // Toast.makeText(getApplicationContext(), "day : "+day[0]+","+day[1]+","+day[2], Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -49,6 +67,7 @@ public class CalenderActivity extends AppCompatActivity {
         }
     }
     public void myListener3(View Target){
+
         Intent intent = new Intent(getApplicationContext(), AddCalenderActivity.class);
         intent.putExtra("id",id); //로그인한 id전달
         intent.putExtra("day", day); //입력된 day 전달
