@@ -13,7 +13,7 @@ https://youtu.be/7NjQG7gg_tQ
 Android oreo/Java/SQLite/Android Studio
 
 
-3. 향후 개선점
+3.향후 개선점
 
 회원가입시 입력한 비밀번호를 암호화합니다.
 회원가입 및 캘린더 추가시에만 DB SQLite을 적용하여서 캘린더 수정/삭제시에도 적용합니다.
