@@ -38,18 +38,18 @@ Nested Recycler View에서 카드뷰끼리 상하, 카드뷰 내에 좌우 간�
  <img width="180" height="300" src="https://user-images.githubusercontent.com/58525009/102718131-df0fb200-4329-11eb-8da6-bb2775189c3e.png">
 </div>
 
-          [일정 시간 선택]                [일정 시간 선택 이후]
+       [일정 시간 선택]     [일정 시간 선택 이후]
 <div>
   <img width="180" height="300" src="https://user-images.githubusercontent.com/58525009/102716523-c6020380-431f-11eb-94f4-c713f09cdb26.png">
   <img width="180" height="300" src="https://user-images.githubusercontent.com/58525009/102716528-cdc1a800-431f-11eb-8596-71812a16e45c.png">
   <img width="180" height="300" src="https://user-images.githubusercontent.com/58525009/102716533-d2865c00-431f-11eb-9890-9b9cb60bf746.png">
 </div>
 
-          [타이머 추가]                [타이머 실행/정지]                    
+       [타이머 화면]           [타이머 추가]             [타이머 실행/정지]                    
 
 <div>
   <img width="180" height="300" src="https://user-images.githubusercontent.com/58525009/102716541-dade9700-431f-11eb-9c54-8be6490265bf.png">
 </div>
 
-          [명언보기]
+        [명언보기]
 
