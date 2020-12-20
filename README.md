@@ -21,7 +21,7 @@ Android oreo/Java/SQLite/Android Studio
 Nested Recycler View에서 카드뷰끼리 상하, 카드뷰 내에 좌우 간격을 설정했는데 좌우간격이 반영되지 않은 원인 분석 및 개선합니다.
 타이머를 추가하고 타이머 시작/종료 버튼시 가장 최근에 추가한 것의 타이머만 동작하는 것을 개선합니다.
 
-4. 기능 및 캡쳐화면
+4.기능 및 캡쳐화면
 
 
 ![image](https://user-images.githubusercontent.com/58525009/102716513-b387ca00-431f-11eb-894c-3b74331316bb.png)
