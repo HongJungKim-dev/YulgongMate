@@ -33,6 +33,10 @@
         <activity android:name=".SignUpActivity">
         </activity>
 
+        <activity android:name=".FamousSayingActivity">
+        </activity>
+
+
     </application>
 
 </manifest>

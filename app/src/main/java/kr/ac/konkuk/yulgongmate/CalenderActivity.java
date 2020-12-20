@@ -10,27 +10,50 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalenderActivity extends AppCompatActivity {
     EditText reserved;
-    Button btnMod, btnDel; //수정, 삭제버튼
     CalendarView cv; //캘린더뷰
     dbHelper helper; //dbHelper
     int[] day; //년월일 저장 배열
     String id; //로그인한 아이디
-
+    private CalendarAdapter calendarAdapter;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager linearLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {   //레이아웃 생성
         super.onCreate(savedInstanceState);  //초기 컴포넌트 초기화
         setContentView(R.layout.calender);  //화면에 나타날 view가 담긴 xml파일을 불러와서 액티비티 설정
-        btnMod = (Button) findViewById(R.id.modCalendar); //수정버튼 아이디 저장
-        btnDel = (Button) findViewById(R.id.delCalendar); // 삭제버튼 아이디 저장
         reserved = (EditText) findViewById(R.id.reservedCalendar);
 
         cv = (CalendarView) findViewById(R.id.CV); //캘린더뷰 아이디 저장
         Intent intent = getIntent(); //인텐트 얻기
         id = intent.getStringExtra("id"); //로그인한 아이디 불러오기
         //Toast.makeText(getApplicationContext(), "id : "+id, Toast.LENGTH_LONG).show();
+
+        recyclerView = (RecyclerView) findViewById(R.id.rv);
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        ArrayList<CalendarData> calendarItemList = new ArrayList<>();
+
+        calendarAdapter = new CalendarAdapter(calendarItemList);
+        recyclerView.setAdapter(calendarAdapter);
+
+        calendarItemList.add(new CalendarData("study1","2020-12-15", "11:00~15:00"));
+        calendarItemList.add(new CalendarData("study2","2020-12-16", "11:00~15:00"));
+        calendarItemList.add(new CalendarData("study3","2020-12-17", "11:00~15:00"));
+        calendarItemList.add(new CalendarData("study4","2020-12-18", "11:00~15:00"));
+        calendarItemList.add(new CalendarData("study5","2020-12-19", "11:00~15:00"));
+        calendarItemList.add(new CalendarData("study6","2020-12-20", "11:00~15:00"));
+        calendarItemList.add(new CalendarData("study7","2020-12-21", "11:00~15:00"));
+        calendarAdapter.notifyDataSetChanged();
+
         try{
             System.out.println("=========================");
             System.out.println("id : "+id);
@@ -58,13 +81,7 @@ public class CalenderActivity extends AppCompatActivity {
         });
     }
     public void onClick(View v){
-        EditText reserved = findViewById(R.id.reservedCalendar);
-        if(v == btnMod) { //수정버튼이면
-            reserved.setText(reserved.getText().toString()); //개정사항 출력
-        }
-        if(v == btnDel){//삭제버튼이면
-            reserved.setText(""); //빈공간 출력
-        }
+
     }
     public void myListener3(View Target){
 

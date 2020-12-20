@@ -29,28 +29,25 @@
             android:onClick="myListener3"
             android:text="+추가" />
 
-    <Button
-        android:id="@+id/modCalendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/CV"
-        android:layout_alignParentLeft="true"
-        android:onClick="onClick"
-        android:text="수정" />
-    <Button
-        android:id="@+id/delCalendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/CV"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClick"
-        android:text="삭제" />
     <EditText
         android:id="@+id/reservedCalendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/modCalendar"
+        android:layout_below="@+id/addCalendar"
         android:hint="위에서 날짜를 선택하시오."
         />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        android:scrollbars="vertical"
+        android:layout_weight="1"
+        android:layout_below="@+id/reservedCalendar"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

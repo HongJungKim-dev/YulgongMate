@@ -1,0 +1,27 @@
+package kr.ac.konkuk.yulgongmate;
+
+import android.graphics.Rect;
+import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+public class FamousSayingRecyclerViewDecoration extends RecyclerView.ItemDecoration {
+
+    private final int divHeight;
+    private final int divWidth;
+
+    public FamousSayingRecyclerViewDecoration(int divWidth, int divHeight)
+    {
+        this.divWidth = divWidth;
+        this.divHeight = divHeight;
+    }
+
+    @Override
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state)
+    {
+        super.getItemOffsets(outRect, view, parent, state);
+        outRect.right = divWidth;
+        outRect.top = divHeight;
+
+    }
+}

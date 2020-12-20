@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("id",id); //로그인한 id보내기
         startActivity(intent); //인텐트 시작
     }
+    public void myListener4(View Target){
+        Intent intent = new Intent(getApplicationContext(), FamousSayingActivity.class); //캘린더 화면 인텐트
+        startActivity(intent);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) { //Activity띄울때 전달했던 요청코드, 새로 띄운 SubActivity에서 전달받은 결과코드, 전달받은 인텐트로 결과 실행
         super.onActivityResult(requestCode, resultCode, data);

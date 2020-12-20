@@ -13,14 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Please press your ID"
-        android:inputType="text" />
+        />
     <EditText
         android:id="@+id/pwd_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="Please press your password"
-        android:inputType="textPassword" />
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
