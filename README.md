@@ -49,3 +49,4 @@ Nested Recycler View에서 카드뷰끼리 상하, 카드뷰 내에 좌우 간�
 ![image](https://user-images.githubusercontent.com/58525009/102716541-dade9700-431f-11eb-9c54-8be6490265bf.png)
 [명언보기]
 
+
